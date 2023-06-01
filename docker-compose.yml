@@ -34,7 +34,9 @@ services:
     image: docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
     container_name: elk_logstash
     volumes:
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logstash/config:/usr/share/logstash/config
+      - ./logstash/data:/usr/share/logstash/data
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
     depends_on:
       - elasticsearch
     networks:

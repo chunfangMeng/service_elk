@@ -1,2 +1,4 @@
 elasticsearch/data
 elasticsearch/plugins
+logstash/data
+logstash/pipeline
