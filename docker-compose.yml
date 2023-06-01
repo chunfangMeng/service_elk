@@ -1,21 +1,16 @@
 version: "3"
-networks:
-  elk_network:
-    name: 'elk_elk_network'
-    external: true
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
     container_name: elk_elasticsearch
     environment:
-      - "cluster.name=elasticsearch"
       - "discovery.type=single-node"
       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     networks:
       - elk_network
     volumes:
-      - ./elasticsearch/plugins:/usr/share/elasticsearch/plugins
-      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+      - elasticsearch_data:/usr/share/elasticsearch/data
     ports:
       - ${ELASTIC_PORT}:9200
       - 9300:9300
@@ -44,4 +39,11 @@ services:
       - elk_network
     ports:
       - ${LOGSTASH_PORT}:4560
+
+networks:
+  elk_network:
+    name: 'elk_elk_network'
+    external: true
+volumes:
+  elasticsearch_data:
   
