@@ -1,7 +1,8 @@
 version: "3"
 networks:
   elk_network:
-    driver: bridge
+    name: 'elk_elk_network'
+    external: true
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
